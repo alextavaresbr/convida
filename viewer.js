@@ -129,6 +129,10 @@ function renderBoletim() {
         return;
     }
     
+    // Atualizar título da página
+    const mesNome = meses[parseInt(boletimData.capa.mes)];
+    document.title = `Boletim IMVC - ${mesNome} de ${boletimData.capa.ano}`;
+    
     console.log('Renderizando boletim com dados:', boletimData);
     console.log('Verificando imagens da capa:', {
         pastoralImg: boletimData.capa?.pastoralImg ? 'OK (' + boletimData.capa.pastoralImg.substring(0, 50) + '...)' : 'VAZIO',
