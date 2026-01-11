@@ -1,0 +1,13 @@
+{
+  "name": "boletim-web",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento de boletim da igreja",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["boletim", "igreja", "metodista"],
+  "author": "",
+  "license": "MIT"
+}

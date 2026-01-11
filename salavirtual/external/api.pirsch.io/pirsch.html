@@ -1,0 +1,101 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	window.dataLayer = window.dataLayer || [];
+
+	function gtag(){
+		var data = {
+			'event': 'gtag',
+			'eventMeta': {}
+		}
+		if ( typeof arguments[1] !== 'undefined' ) {
+			data['eventAction'] = arguments[1];
+		}
+
+		if ( typeof arguments[2] !== 'undefined' && typeof arguments[2] === 'object' ) {
+			for (const [key, value] of Object.entries(arguments[2])) {
+				if ( key == 'event_category' ) {
+					data['eventCategory'] = value;
+				} else if ( key == 'event_label' ) {
+					data['eventLabel'] = value;
+				} else if ( key == 'value' ) {
+					data['eventValue'] = value;
+				} else if ( key == 'non_interaction' ) {
+					data['non_interaction'] = value;
+				} else if ( key == 'edu_pid' ) {
+					data['edu_pid'] = value;
+				} else if ( key == 'edu_pagetype' ) {
+					data['edu_pagetype'] = value;
+				} else {
+					data['eventMeta'][key] = value;
+				}
+			}
+		}
+
+		if ( typeof window.dataLayerProxy !== 'undefined' ) {
+			window.dataLayerProxy.push( data );
+		} else {
+			window.dataLayer.push( data );
+		}
+	}
+
+	function pirschEvent(data) {
+		if ( data.event != 'gtag' ) return;
+		if ( typeof data.eventAction === 'undefined' || data.eventAction === null ) return;
+
+		var action = data.eventAction;
+		var meta = data.eventMeta;
+
+		if ( typeof data.eventCategory !== 'undefined' && data.eventCategory !== null ) {
+			action = data.eventCategory + ' - ' + action;
+		}
+		if ( typeof data.eventLabel !== 'undefined' && data.eventLabel !== null ) {
+			meta.Label = data.eventLabel;
+			if ( typeof data.eventValue !== 'undefined' && data.eventValue !== null ) {
+				meta.Value = data.eventValue;
+			}
+		}
+		pirsch( action, { meta: meta }).catch(e => { console.error(e); });
+	}
+
+	window.dataLayerEvents = [];
+	window.dataLayerEvents.push(pirschEvent);
+
+	if ( typeof pirschextendedjs !== 'undefined' ) {
+		pirschextendedjs.addEventListener('load', function () {
+
+			window.dataLayerProxy = new Proxy(window.dataLayer, {
+				set: function (target, key, value) {
+					target[key] = value;
+					window.dataLayerEvents.forEach(function(callback){ callback(value); });
+					return true;
+				}
+			});
+
+			if ( window.dataLayer.length > 0 ) {
+				for (var i = window.dataLayer.length - 1; i >= 0; i--) {
+					dataLayerProxy[i] = window.dataLayer[i];
+				}
+			}
+
+		});
+	}
+

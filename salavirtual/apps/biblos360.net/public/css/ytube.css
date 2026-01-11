@@ -1,0 +1,190 @@
+/* YouTube Player - Sistema de Controle de Volume e Interface Oculta */
+
+/* Quando tem conteúdo YouTube, remove o padding da video-box original */
+#liveplayer.yt-active {
+    padding-bottom: 0 !important;
+}
+
+/* Garante que o liveplayer seja um container posicionado */
+#liveplayer {
+    position: relative;
+}
+
+/* Container do YouTube que se mantém dentro do liveplayer */
+#liveplayer .yt-wrapper {
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    /* Removido padding-bottom fixo - será controlado por media queries específicas */
+}
+
+/* Técnica original para esconder controles do YouTube */
+@media screen and (min-width: 768px) {
+    #liveplayer .yt-frame-container {
+        position: relative;
+        padding-bottom: 56.25%; 
+        padding-top: 25px;
+        width: 300%;
+        left: -100%;
+    }
+
+    #liveplayer .yt-frame-container iframe {
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%;
+        border: none;
+        pointer-events: none;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /* CORREÇÃO MOBILE PORTRAIT - TELA PRETA YOUTUBE */
+    #liveplayer .yt-wrapper {
+        height: calc(100vw * 9 / 16) !important;
+        min-height: calc(100vw * 9 / 16) !important;
+        padding-bottom: 0 !important;
+    }
+    
+    /* Portrait específico - usar técnica de crop para esconder título */
+    @media screen and (orientation: portrait) {
+        #liveplayer .yt-wrapper {
+            height: calc(100vw * 9 / 16) !important;
+            min-height: 200px !important;
+            /* Removido max-height fixo para evitar aspecto quadrado */
+        }
+        
+        #liveplayer .yt-frame-container iframe {
+            top: 0px !important;
+        }
+    }
+    
+    /* Landscape específico */
+    @media screen and (orientation: landscape) and (max-height: 500px) {
+        #liveplayer .yt-wrapper {
+            height: calc(100vh - 120px) !important;
+            min-height: calc(100vh - 120px) !important;
+        }
+    }
+    
+    #liveplayer .yt-frame-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    #liveplayer .yt-frame-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        pointer-events: none;
+    }
+}
+
+/* Área clicável transparente sobre o vídeo para ativar som */
+#liveplayer .yt-click-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    cursor: pointer;
+    background: transparent;
+}
+
+/* Botões de controle */
+#liveplayer .control-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+#liveplayer .control-button {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#liveplayer .control-button:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+}
+
+#liveplayer .control-button.muted {
+    background: rgba(220, 53, 69, 0.8);
+}
+
+#liveplayer .control-button.muted:hover {
+    background: rgba(220, 53, 69, 0.9);
+}
+
+/* Controle de volume */
+#liveplayer .volume-control {
+    position: absolute;
+    bottom: 50px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px 10px;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    min-height: 120px;
+}
+
+#liveplayer .volume-control.show {
+    display: flex;
+}
+
+#liveplayer .volume-slider {
+    writing-mode: bt-lr; /* IE */
+    writing-mode: vertical-lr; /* Standard syntax */
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    width: 20px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.3);
+    outline: none;
+    border-radius: 10px;
+    transform: rotate(180deg); /* Inverte o slider */
+}
+
+#liveplayer .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+}
+
+#liveplayer .volume-label {
+    color: white;
+    font-size: 12px;
+    margin-top: 10px;
+    text-align: center;
+}

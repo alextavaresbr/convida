@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim Web - Igreja Metodista</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="icons/logo.png" alt="Logo" class="header-logo">
+            <h1>Boletins da Igreja Metodista</h1>
+            <a href="admin.html" class="admin-link">Acesso Administrativo</a>
+        </header>
+
+        <main class="main-content">
+            <div class="year-selector">
+                <button class="year-btn" id="prev-year">‹</button>
+                <h2 id="current-year">2026</h2>
+                <button class="year-btn" id="next-year">›</button>
+            </div>
+
+            <div class="months-grid" id="months-grid">
+                <!-- Meses serão preenchidos via JavaScript -->
+            </div>
+
+            <div class="no-boletins" id="no-boletins" style="display: none;">
+                <p>Nenhum boletim encontrado para este ano.</p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>© 2026 Biblos360 - Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>

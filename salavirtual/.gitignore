@@ -1,0 +1,75 @@
+# Dependências
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dados e uploads
+data/
+uploads/
+backups/
+
+# Documentação (não incluir no deploy)
+docs/
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+.tmp/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Build
+dist/
+build/
+
+# PM2
+.pm2/
+
+# Pasta de arquivos ignorados
+_ignorar/
+
+# API - Dados dinâmicos de runtime (não versionar)
+api/timestamp.txt
+api/chat.json
+api/messages.json
+# api/participantes.json - REMOVIDO do gitignore para incluir no deploy
+api/sessoes.json
+api/video_positions.json
+api/logado_data.json
+api/room.json
+api/page_info.json
+
+# Arquivos de deploy desnecessários
+railway.json
+api/index.json
+api/extra.json
+
+# Mantém estrutura da pasta API
+!api/.gitkeep
+
+# Arquivos temporários
+*.tmp
+*.temp
