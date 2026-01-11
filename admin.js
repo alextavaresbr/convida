@@ -1201,26 +1201,11 @@ function populateFormWithData(data) {
 
 // ===== PREVIEW =====
 function previewBoletim() {
-    // Se já tem mês/ano selecionado e o boletim foi salvo, abrir com parâmetros
-    if (currentMonth && currentYear) {
-        const filename = `boletim-${currentYear}-${String(currentMonth).padStart(2, '0')}.json`;
-        checkBoletimExists(filename).then(exists => {
-            if (exists) {
-                // Boletim salvo existe, abrir com parâmetros da URL
-                window.open(`viewer.html?year=${currentYear}&month=${String(currentMonth).padStart(2, '0')}`, '_blank');
-            } else {
-                // Boletim ainda não foi salvo, usar preview temporário
-                const data = collectFormData();
-                localStorage.setItem('preview-data', JSON.stringify(data));
-                window.open('viewer.html', '_blank');
-            }
-        });
-    } else {
-        // Sem mês/ano, usar preview temporário
-        const data = collectFormData();
-        localStorage.setItem('preview-data', JSON.stringify(data));
-        window.open('viewer.html', '_blank');
-    }
+    // Sempre usar preview temporário com dados atuais do formulário
+    // Isso garante que o usuário veja as alterações mais recentes, mesmo sem salvar
+    const data = collectFormData();
+    localStorage.setItem('preview-data', JSON.stringify(data));
+    window.open('viewer.html', '_blank');
 }
 
 // ===== AUTO PREENCHER (TESTE) =====
