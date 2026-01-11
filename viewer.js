@@ -85,11 +85,23 @@ async function loadBoletim() {
         // Carregar do servidor primeiro, depois tentar arquivo local
         const filename = `boletim-${year}-${month}.json`;
         
+        // Determinar URL da API baseado no ambiente
+        let apiUrl;
+        if (window.location.protocol === 'file:') {
+            apiUrl = `http://localhost:3000/api/load-boletim/${filename}`;
+        } else {
+            apiUrl = `${window.location.origin}/api/load-boletim/${filename}`;
+        }
+        
+        // Adicionar timestamp para evitar cache
+        const cacheBuster = `?t=${Date.now()}`;
+        
         try {
             // Tentar servidor primeiro
-            const serverResponse = await fetch(`http://localhost:3000/api/load-boletim/${filename}`);
+            const serverResponse = await fetch(apiUrl + cacheBuster);
             if (serverResponse.ok) {
                 boletimData = await serverResponse.json();
+                console.log('[VIEWER] Boletim carregado do servidor:', filename);
                 renderBoletim();
                 return;
             }
@@ -99,15 +111,16 @@ async function loadBoletim() {
         
         // Fallback: tentar arquivo local
         try {
-            const response = await fetch(`data/${filename}`);
+            const response = await fetch(`data/${filename}` + cacheBuster);
             if (response.ok) {
                 boletimData = await response.json();
+                console.log('[VIEWER] Boletim carregado localmente:', filename);
                 renderBoletim();
             } else {
-                showError('Boletim não encontrado. Certifique-se de que o servidor está rodando (npm start)');
+                showError('Boletim não encontrado');
             }
         } catch (error) {
-            showError('Erro ao carregar boletim. Inicie o servidor com "npm start" e tente novamente.');
+            showError('Erro ao carregar boletim');
         }
     } else {
         showError('Parâmetros inválidos');
