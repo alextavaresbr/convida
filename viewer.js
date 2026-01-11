@@ -594,15 +594,18 @@ function renderEscalas() {
     if (boletimData.escalas.ebdQuartas.linhas.length > 0 || boletimData.escalas.estudo.length > 0) {
         html += '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">';
         
-        if (boletimData.escalas.ebdQuartas.linhas.length > 0) {
+        const estudoData = Array.isArray(boletimData.escalas.estudo) ? { horario: '', linhas: boletimData.escalas.estudo } : boletimData.escalas.estudo;
+        const estudoLinhas = estudoData.linhas || estudoData;
+        
+        if (estudoLinhas.length > 0) {
             html += `
                 <div class="escalas-section">
-                    <h3>REUNIÃO DE ORAÇÃO</h3>
-                    <h3>${boletimData.escalas.ebdQuartas.horario || 'Quartas, 20h'}</h3>
+                    <h3>ESTUDO BÍBLICO</h3>
+                    <h3>${estudoData.horario || 'Quintas, 20h'}</h3>
                     <table class="escalas-table">
             `;
             
-            boletimData.escalas.ebdQuartas.linhas.forEach(linha => {
+            estudoLinhas.forEach(linha => {
                 if (linha.data) {
                     html += `
                         <tr>
@@ -616,18 +619,15 @@ function renderEscalas() {
             html += '</table></div>';
         }
         
-        const estudoData = Array.isArray(boletimData.escalas.estudo) ? { horario: '', linhas: boletimData.escalas.estudo } : boletimData.escalas.estudo;
-        const estudoLinhas = estudoData.linhas || estudoData;
-        
-        if (estudoLinhas.length > 0) {
+        if (boletimData.escalas.ebdQuartas.linhas.length > 0) {
             html += `
                 <div class="escalas-section">
-                    <h3>ESTUDO BÍBLICO</h3>
-                    <h3>${estudoData.horario || 'Quintas, 20h'}</h3>
+                    <h3>REUNIÃO DE ORAÇÃO</h3>
+                    <h3>${boletimData.escalas.ebdQuartas.horario || 'Quartas, 20h'}</h3>
                     <table class="escalas-table">
             `;
             
-            estudoLinhas.forEach(linha => {
+            boletimData.escalas.ebdQuartas.linhas.forEach(linha => {
                 if (linha.data) {
                     html += `
                         <tr>
