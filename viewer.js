@@ -143,11 +143,25 @@ function renderBoletim() {
     
     // Atualizar imagem do Open Graph com a imagem da capa da pastoral
     if (boletimData.capa.pastoralImg) {
-        // Se for base64 (data URI), usar diretamente
-        // Se for URL relativa, converter para URL absoluta
-        const imagemUrl = boletimData.capa.pastoralImg.startsWith('data:') 
-            ? boletimData.capa.pastoralImg 
-            : new URL(boletimData.capa.pastoralImg, window.location.href).href;
+        let imagemUrl;
+        
+        // Se a imagem for base64, usar o endpoint do servidor para convertê-la em URL pública
+        if (boletimData.capa.pastoralImg.startsWith('data:')) {
+            // Extrair mes e ano para formar o nome do arquivo
+            const mes = String(boletimData.capa.mes).padStart(2, '0');
+            const ano = boletimData.capa.ano;
+            const filename = `boletim-${ano}-${mes}`;
+            
+            // Usar URL do servidor (assumindo que está rodando em localhost:3000)
+            // Para produção, isso deve ser a URL pública do servidor
+            const serverUrl = window.location.protocol === 'file:' 
+                ? 'http://localhost:3000' 
+                : window.location.origin;
+            imagemUrl = `${serverUrl}/api/boletim-image/${filename}`;
+        } else {
+            // Se for URL relativa, converter para URL absoluta
+            imagemUrl = new URL(boletimData.capa.pastoralImg, window.location.href).href;
+        }
         
         document.getElementById('og-image').setAttribute('content', imagemUrl);
         
@@ -177,9 +191,21 @@ function renderBoletim() {
     
     // Atualizar imagem do Twitter Card também
     if (boletimData.capa.pastoralImg) {
-        const imagemUrl = boletimData.capa.pastoralImg.startsWith('data:') 
-            ? boletimData.capa.pastoralImg 
-            : new URL(boletimData.capa.pastoralImg, window.location.href).href;
+        let imagemUrl;
+        
+        // Se a imagem for base64, usar o endpoint do servidor
+        if (boletimData.capa.pastoralImg.startsWith('data:')) {
+            const mes = String(boletimData.capa.mes).padStart(2, '0');
+            const ano = boletimData.capa.ano;
+            const filename = `boletim-${ano}-${mes}`;
+            
+            const serverUrl = window.location.protocol === 'file:' 
+                ? 'http://localhost:3000' 
+                : window.location.origin;
+            imagemUrl = `${serverUrl}/api/boletim-image/${filename}`;
+        } else {
+            imagemUrl = new URL(boletimData.capa.pastoralImg, window.location.href).href;
+        }
         
         let twitterImage = document.getElementById('twitter-image');
         if (!twitterImage) {

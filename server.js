@@ -140,6 +140,57 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Servir imagem da pastoral do boletim (converte base64 para imagem)
+    if (req.method === 'GET' && req.url.startsWith('/api/boletim-image/')) {
+        const filename = req.url.replace('/api/boletim-image/', '').split('?')[0];
+        const filepath = path.join(DATA_DIR, filename + '.json');
+        
+        if (fs.existsSync(filepath)) {
+            try {
+                const content = JSON.parse(fs.readFileSync(filepath, 'utf8'));
+                const pastoralImg = content.capa?.pastoralImg;
+                
+                if (!pastoralImg) {
+                    res.writeHead(404, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Imagem da pastoral não encontrada' }));
+                    return;
+                }
+                
+                // Se for data URI base64, extrair e servir
+                if (pastoralImg.startsWith('data:')) {
+                    const matches = pastoralImg.match(/^data:([^;]+);base64,(.+)$/);
+                    if (matches) {
+                        const mimeType = matches[1];
+                        const base64Data = matches[2];
+                        const imageBuffer = Buffer.from(base64Data, 'base64');
+                        
+                        res.writeHead(200, { 
+                            'Content-Type': mimeType,
+                            'Content-Length': imageBuffer.length,
+                            'Cache-Control': 'public, max-age=31536000'
+                        });
+                        res.end(imageBuffer);
+                        console.log(`[IMAGEM] Servindo imagem da pastoral: ${filename}`);
+                    } else {
+                        res.writeHead(400, { 'Content-Type': 'application/json' });
+                        res.end(JSON.stringify({ error: 'Formato de imagem inválido' }));
+                    }
+                } else {
+                    res.writeHead(400, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ error: 'Imagem não está em formato base64' }));
+                }
+            } catch (error) {
+                res.writeHead(500, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: error.message }));
+                console.error('[ERRO] Erro ao servir imagem:', error);
+            }
+        } else {
+            res.writeHead(404, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Boletim não encontrado' }));
+        }
+        return;
+    }
+
     // Servir arquivos estáticos (HTML, CSS, JS, imagens)
     // Remover query string da URL
     const urlPath = req.url.split('?')[0];
@@ -190,5 +241,7 @@ server.listen(PORT, () => {
     console.log(`   GET    /api/check-boletim/:filename - Verificar se existe`);
     console.log(`   GET    /api/load-boletim/:filename  - Carregar boletim`);
     console.log(`   GET    /api/list-boletins     - Listar todos`);
+    console.log(`   DELETE /api/delete-boletim/:filename - Excluir boletim`);
+    console.log(`   GET    /api/boletim-image/:filename  - Servir imagem da pastoral`);
     console.log(`\n[INFO] Para usar o admin, abra: file:///${__dirname.replace(/\\/g, '/')}/admin.html\n`);
 });
