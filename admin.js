@@ -2,8 +2,31 @@
 const ADMIN_PASSWORD = 'metodista2026';
 console.log('[INIT] admin.js carregado, senha configurada');
 
-// Configuração da API
-const API_URL = 'http://localhost:3000/api';
+// Configuração da API - detecta automaticamente se está em produção ou local
+const getApiUrl = () => {
+    console.log('[DEBUG] Detectando ambiente:', {
+        protocol: window.location.protocol,
+        hostname: window.location.hostname,
+        origin: window.location.origin
+    });
+    
+    // Se estiver acessando via file:// (arquivo local), usar localhost
+    if (window.location.protocol === 'file:') {
+        console.log('[DEBUG] Detectado: arquivo local');
+        return 'http://localhost:3000/api';
+    }
+    // Se estiver em localhost, usar localhost:3000
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('[DEBUG] Detectado: localhost');
+        return 'http://localhost:3000/api';
+    }
+    // Caso contrário (produção - Railway, etc), usar a origem atual
+    console.log('[DEBUG] Detectado: produção');
+    return `${window.location.origin}/api`;
+};
+
+const API_URL = getApiUrl();
+console.log('[API] URL configurada:', API_URL);
 const USE_SERVER = true; // Mudar para false se não tiver servidor rodando
 
 // Estado global
@@ -725,7 +748,10 @@ function collectFormData() {
                 horario: document.getElementById('escalas-ebd-quartas-horario').value,
                 linhas: collectDynamicRows('escalas-ebd-quartas-list', ['ebd-quartas-data', 'ebd-quartas-resp'])
             },
-            estudo: collectDynamicRows('escalas-estudo-list', ['estudo-data', 'estudo-resp'])
+            estudo: {
+                horario: document.getElementById('escalas-estudo-horario').value,
+                linhas: collectDynamicRows('escalas-estudo-list', ['estudo-data', 'estudo-resp'])
+            }
         },
         aniversariantes: {
             versiculo: document.getElementById('aniv-versiculo').value,
@@ -1083,9 +1109,11 @@ function populateFormWithData(data) {
         
         // Estudo
         if (data.escalas.estudo) {
+            const estudoData = Array.isArray(data.escalas.estudo) ? { horario: '', linhas: data.escalas.estudo } : data.escalas.estudo;
+            document.getElementById('escalas-estudo-horario').value = estudoData.horario || '';
             const estudoList = document.getElementById('escalas-estudo-list');
             estudoList.innerHTML = '';
-            data.escalas.estudo.forEach(item => {
+            (estudoData.linhas || estudoData).forEach(item => {
                 addEstudoRow();
                 const rows = estudoList.querySelectorAll('.dynamic-row');
                 const lastRow = rows[rows.length - 1];
@@ -1296,6 +1324,7 @@ function autoFillForm() {
     });
     
     // EBD Quartas
+    document.getElementById('escalas-ebd-quartas-horario').value = 'Quartas, 19h';
     const ebdQuartasList = document.getElementById('escalas-ebd-quartas-list');
     ebdQuartasList.innerHTML = '';
     ['08/01', '15/01', '22/01', '29/01'].forEach(dia => {
@@ -1307,8 +1336,9 @@ function autoFillForm() {
     });
     
     // Estudo Bíblico
+    document.getElementById('escalas-estudo-horario').value = 'Quartas, 20h';
     const estudoList = document.getElementById('escalas-estudo-list');
-    estudoList.innerHTML = '';
+    estudoList.innerHTML = '';;
     ['10/01', '17/01', '24/01', '31/01'].forEach(dia => {
         addEstudoRow();
         const rows = estudoList.querySelectorAll('.dynamic-row');

@@ -145,9 +145,14 @@ function renderBoletim() {
             
             // Usar URL do servidor (assumindo que está rodando em localhost:3000)
             // Para produção, isso deve ser a URL pública do servidor
-            const serverUrl = window.location.protocol === 'file:' 
-                ? 'http://localhost:3000' 
-                : window.location.origin;
+            let serverUrl;
+            if (window.location.protocol === 'file:' || 
+                window.location.hostname === 'localhost' || 
+                window.location.hostname === '127.0.0.1') {
+                serverUrl = 'http://localhost:3000';
+            } else {
+                serverUrl = window.location.origin;
+            }
             imagemUrl = `${serverUrl}/api/boletim-image/${filename}`;
         } else {
             // Se for URL relativa, converter para URL absoluta
@@ -190,9 +195,14 @@ function renderBoletim() {
             const ano = boletimData.capa.ano;
             const filename = `boletim-${ano}-${mes}`;
             
-            const serverUrl = window.location.protocol === 'file:' 
-                ? 'http://localhost:3000' 
-                : window.location.origin;
+            let serverUrl;
+            if (window.location.protocol === 'file:' || 
+                window.location.hostname === 'localhost' || 
+                window.location.hostname === '127.0.0.1') {
+                serverUrl = 'http://localhost:3000';
+            } else {
+                serverUrl = window.location.origin;
+            }
             imagemUrl = `${serverUrl}/api/boletim-image/${filename}`;
         } else {
             imagemUrl = new URL(boletimData.capa.pastoralImg, window.location.href).href;
@@ -606,15 +616,18 @@ function renderEscalas() {
             html += '</table></div>';
         }
         
-        if (boletimData.escalas.estudo.length > 0) {
+        const estudoData = Array.isArray(boletimData.escalas.estudo) ? { horario: '', linhas: boletimData.escalas.estudo } : boletimData.escalas.estudo;
+        const estudoLinhas = estudoData.linhas || estudoData;
+        
+        if (estudoLinhas.length > 0) {
             html += `
                 <div class="escalas-section">
                     <h3>ESTUDO BÍBLICO</h3>
-                    <h3>Quintas, 20h</h3>
+                    <h3>${estudoData.horario || 'Quintas, 20h'}</h3>
                     <table class="escalas-table">
             `;
             
-            boletimData.escalas.estudo.forEach(linha => {
+            estudoLinhas.forEach(linha => {
                 if (linha.data) {
                     html += `
                         <tr>
