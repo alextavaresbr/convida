@@ -623,7 +623,7 @@ function renderEscalas() {
             html += `
                 <div class="escalas-section">
                     <h3>REUNIÃO DE ORAÇÃO</h3>
-                    <h3>${boletimData.escalas.ebdQuartas.horario || 'Quartas, 20h'}</h3>
+                    <h3>${boletimData.escalas.ebdQuartas.horario || 'Quintas, 20h'}</h3>
                     <table class="escalas-table">
             `;
             

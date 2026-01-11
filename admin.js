@@ -1324,7 +1324,7 @@ function autoFillForm() {
     });
     
     // EBD Quartas
-    document.getElementById('escalas-ebd-quartas-horario').value = 'Quartas, 19h';
+    document.getElementById('escalas-ebd-quartas-horario').value = 'Quintas, 20h';
     const ebdQuartasList = document.getElementById('escalas-ebd-quartas-list');
     ebdQuartasList.innerHTML = '';
     ['08/01', '15/01', '22/01', '29/01'].forEach(dia => {
