@@ -1,0 +1,80 @@
+[
+  {
+    "msgid": 1759345806332,
+    "userid": "92362",
+    "groupid": null,
+    "room": "ev:pub",
+    "nick": "Alex Tavares",
+    "message": "a",
+    "message_html": "a",
+    "source": "",
+    "item": 1111,
+    "ts": 1759345806,
+    "hidden": 0,
+    "level": 3,
+    "favorited": 0,
+    "marked": 0,
+    "extra": {
+      "extid": "92362",
+      "uf": "SP",
+      "sexo": 1,
+      "parceiro": 0,
+      "equipe": "IMVC",
+      "turma": null,
+      "grupo": null,
+      "rede": null
+    }
+  },
+  {
+    "msgid": 1759842947021,
+    "userid": "92362",
+    "groupid": null,
+    "room": "ev:pub",
+    "nick": "Alex Tavares",
+    "message": "b",
+    "message_html": "b",
+    "source": "",
+    "item": 1111,
+    "ts": 1759842947,
+    "hidden": 0,
+    "level": 3,
+    "favorited": 0,
+    "marked": 0,
+    "extra": {
+      "extid": "92362",
+      "uf": "SP",
+      "sexo": 1,
+      "parceiro": 0,
+      "equipe": "IMVC",
+      "turma": null,
+      "grupo": null,
+      "rede": null
+    }
+  },
+  {
+    "msgid": 1759842953500,
+    "userid": "92362",
+    "groupid": null,
+    "room": "ev:pub",
+    "nick": "Alex Tavares",
+    "message": "?",
+    "message_html": "?",
+    "source": "",
+    "item": 1111,
+    "ts": 1759842953,
+    "hidden": 0,
+    "level": 3,
+    "favorited": 0,
+    "marked": 0,
+    "extra": {
+      "extid": "92362",
+      "uf": "SP",
+      "sexo": 1,
+      "parceiro": 0,
+      "equipe": "IMVC",
+      "turma": null,
+      "grupo": null,
+      "rede": null
+    }
+  }
+]

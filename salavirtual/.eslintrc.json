@@ -1,0 +1,43 @@
+{
+  "env": {
+    "node": true,
+    "es2021": true
+  },
+  "extends": [
+    "standard"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "off",
+    "no-unused-vars": "warn",
+    "camelcase": ["error", {
+      "allow": [
+        "live_enabled", "chat_enabled", "jitsi_enabled", "salas_unified",
+        "live_url", "salas_enabled", "advanced_features", "admin_level",
+        "professor_limit", "cookie_check", "time_sync", "schedule_enabled",
+        "dropbox_enabled", "multiday_support", "custom_css", "welcome_message",
+        "cpf_cnpj", "data_nascimento", "biblos360_site_usuario", "biblos360_site_inscrito",
+        "biblos360_admin_usuario", "biblos360_admin_inscrito", "biblos360_time_sync",
+        "room_id", "room_title", "room_name", "conference_type", "participant_name",
+        "participant_id", "admin_url", "monitor_url", "access_url", "created_by",
+        "created_at", "is_online", "user_level", "user_count", "watcher_item",
+        "starts_at", "ends_at", "starts_at_timestamp", "ends_at_timestamp",
+        "last_sync", "last_online", "last_offline", "last_session_duration",
+        "stream_url", "stream_updated_at", "stream_updated_by", "active_session",
+        "public_access", "popup_interactions", "evaluation_system", "presence_control",
+        "poll_system", "raffle_system", "notification_system", "timer_system",
+        "markdown_support", "dropbox_integration", "session_schedule",
+        "legacy_behavior", "current_behavior", "backend_status",
+        "breakout_insc", "breakout_staff", "reuniao_insc", "reuniao_staff",
+        "equipe_insc", "equipe_staff", "rede_insc", "rede_staff",
+        "oracao_insc", "oracao_staff", "atendimento_insc", "atendimento_staff",
+        "projeto_insc", "projeto_staff", "grupo_insc", "grupo_staff",
+        "turma_insc", "turma_staff", "professor_insc", "professor_staff",
+        "sala_insc", "sala_staff"
+      ]
+    }]
+  }
+}

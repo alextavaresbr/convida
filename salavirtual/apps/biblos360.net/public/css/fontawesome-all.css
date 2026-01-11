@@ -1,0 +1,180 @@
+/*!
+ * FontAwesome 5.15.4 - CSS Core
+ * Biblos360 Virtual Room
+ */
+
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url("fa-solid-900.woff2") format("woff2"), url("fa-solid-900.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("fa-regular-400.woff2") format("woff2"), url("fa-regular-400.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Font Awesome 5 Brands";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("fa-brands-400.woff2") format("woff2"), url("fa-brands-400.woff") format("woff");
+}
+
+.fa,
+.fas,
+.far,
+.fal,
+.fab {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+.fas {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.far {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+}
+
+.fab {
+  font-family: "Font Awesome 5 Brands";
+  font-weight: 400;
+}
+
+/* Ícones específicos usados no sistema */
+.fa-play:before { content: "\f04b"; }
+.fa-pause:before { content: "\f04c"; }
+.fa-stop:before { content: "\f04d"; }
+.fa-forward:before { content: "\f04e"; }
+.fa-backward:before { content: "\f04a"; }
+.fa-volume-up:before { content: "\f028"; }
+.fa-volume-down:before { content: "\f027"; }
+.fa-volume-off:before { content: "\f026"; }
+.fa-download:before { content: "\f019"; }
+.fa-users:before { content: "\f0c0"; }
+.fa-user:before { content: "\f007"; }
+.fa-comments:before { content: "\f086"; }
+.fa-comment:before { content: "\f075"; }
+.fa-microphone:before { content: "\f130"; }
+.fa-microphone-slash:before { content: "\f131"; }
+.fa-video:before { content: "\f03d"; }
+.fa-video-slash:before { content: "\f4cc"; }
+.fa-desktop:before { content: "\f108"; }
+.fa-mobile:before { content: "\f10b"; }
+.fa-tablet:before { content: "\f10a"; }
+.fa-cog:before { content: "\f013"; }
+.fa-cogs:before { content: "\f085"; }
+.fa-home:before { content: "\f015"; }
+.fa-sign-out-alt:before { content: "\f2f5"; }
+.fa-times:before { content: "\f00d"; }
+.fa-check:before { content: "\f00c"; }
+.fa-arrow-left:before { content: "\f060"; }
+.fa-arrow-right:before { content: "\f061"; }
+.fa-arrow-up:before { content: "\f062"; }
+.fa-arrow-down:before { content: "\f063"; }
+.fa-chevron-left:before { content: "\f053"; }
+.fa-chevron-right:before { content: "\f054"; }
+.fa-chevron-up:before { content: "\f077"; }
+.fa-chevron-down:before { content: "\f078"; }
+.fa-expand:before { content: "\f065"; }
+.fa-compress:before { content: "\f066"; }
+.fa-fullscreen:before { content: "\f2d0"; }
+.fa-search:before { content: "\f002"; }
+.fa-plus:before { content: "\f067"; }
+.fa-minus:before { content: "\f068"; }
+.fa-edit:before { content: "\f044"; }
+.fa-trash:before { content: "\f1f8"; }
+.fa-save:before { content: "\f0c7"; }
+.fa-print:before { content: "\f02f"; }
+.fa-share:before { content: "\f064"; }
+.fa-link:before { content: "\f0c1"; }
+.fa-external-link-alt:before { content: "\f35d"; }
+.fa-info:before { content: "\f129"; }
+.fa-question:before { content: "\f128"; }
+.fa-exclamation:before { content: "\f12a"; }
+.fa-warning:before { content: "\f071"; }
+.fa-bell:before { content: "\f0f3"; }
+.fa-envelope:before { content: "\f0e0"; }
+.fa-calendar:before { content: "\f133"; }
+.fa-clock:before { content: "\f017"; }
+.fa-star:before { content: "\f005"; }
+.fa-heart:before { content: "\f004"; }
+.fa-thumbs-up:before { content: "\f164"; }
+.fa-thumbs-down:before { content: "\f165"; }
+.fa-bookmark:before { content: "\f02e"; }
+.fa-flag:before { content: "\f024"; }
+
+/* Utilitários */
+.fa-fw {
+  text-align: center;
+  width: 1.25em;
+}
+
+.fa-lg {
+  font-size: 1.33333em;
+  line-height: 0.75em;
+  vertical-align: -0.0667em;
+}
+
+.fa-xs {
+  font-size: 0.75em;
+}
+
+.fa-sm {
+  font-size: 0.875em;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}

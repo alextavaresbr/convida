@@ -1,0 +1,21 @@
+{
+  "name": "Biblos360 Virtual Room",
+  "short_name": "Biblos360",
+  "description": "Sala virtual para eventos e conferências",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#007cba",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png", 
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}

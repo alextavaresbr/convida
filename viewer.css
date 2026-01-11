@@ -1,0 +1,1052 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Roboto+Condensed:wght@700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-purple: #5B4B8A;
+    --dark-purple: #3B2F5C;
+    --light-gray: #E8E8E8;
+    --text-primary: #2D2D2D;
+    --text-secondary: #666;
+    --border-color: rgba(229, 231, 235, 0.3);
+    --glass-bg: rgba(255, 255, 255, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: url('img/bg1.png') center/cover no-repeat fixed;
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+body.dark-mode {
+    --primary-purple: #7C6BAD;
+    --dark-purple: #5B4B8A;
+    --light-gray: #2D2D2D;
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --border-color: rgba(55, 65, 81, 0.3);
+    --glass-bg: rgba(31, 41, 55, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    background: url('img/bg1.png') center/cover no-repeat fixed;
+    filter: brightness(0.7);
+    color: #f3f4f6;
+}
+
+body.dark-mode .boletim-page {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.15);
+}
+
+body.dark-mode .viewer-header {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .capa-faixa-mes {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+}
+
+body.dark-mode .escalas-section h3 {
+    background: rgba(55, 65, 81, 0.9);
+    color: #f3f4f6;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .escalas-section h3 + h3 {
+    background: rgba(55, 65, 81, 0.8);
+    color: #d1d5db;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* HEADER */
+.viewer-header {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    padding: 16px 24px;
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1000;
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.1);
+}
+
+.back-btn, .print-btn {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-primary);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.1);
+}
+
+.back-btn:hover, .print-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px 0 rgba(31, 38, 135, 0.15);
+}
+
+.font-control-btn {
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-control-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px 0 rgba(31, 38, 135, 0.15);
+}
+
+.font-control-btn {
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-control-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px 0 rgba(31, 38, 135, 0.15);
+}
+
+.viewer-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* CONTAINER */
+.viewer-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.boletim-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+#loading {
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 18px;
+}
+
+/* PÁGINAS DO BOLETIM */
+.boletim-page {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.15);
+    border: 1px solid var(--glass-border);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+/* MOBILE: Largura fluida */
+@media (max-width: 768px) {
+    .boletim-page {
+        width: 100%;
+    }
+    
+    .boletim-wrapper {
+        padding: 0;
+    }
+    
+    /* Ajustar posição da data no mobile */
+    .capa-data-overlay {
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: auto;
+        font-size: 10px;
+        right: 15px;
+    }
+}
+
+/* DESKTOP: Fluido com max-width */
+@media (min-width: 769px) {
+    .boletim-page {
+        width: 100%;
+        max-width: 800px;
+        padding: 20px 40px;
+    }
+}
+
+/* CAPA */
+.capa-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.15);
+    border: 1px solid var(--glass-border);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0;
+}
+
+.page-capa {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: transparent;
+    color: var(--text-primary);
+}
+
+/* Logo Convida no topo */
+.capa-logo-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    padding-left: 10px;
+}
+
+.capa-logo-convida,
+.logo-convida {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Data sobreposta no logo */
+.capa-data-overlay {
+    position: absolute;
+    bottom: 35px;
+    right: 20px;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: right;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Faixa preta com o mês */
+.capa-faixa-mes {
+    background: #000000;
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    text-align: center;
+    padding: 6px 8px;
+    margin: 0 -10px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
+    border-radius: 0;
+}
+
+/* Seção PASTORAL com faixa roxa */
+.capa-pastoral-section {
+    margin-bottom: 16px;
+}
+
+.capa-faixa-pastoral {
+    background: rgba(255, 255, 240, 0.9);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-primary);
+    text-align: center;
+    padding: 6px 16px;
+    margin: 0 -16px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 0;
+}
+
+.capa-pastoral-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Container da imagem pastoral na capa (sem título/faixa) */
+.capa-pastoral-img-container {
+    margin: 6px -10px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.capa-pastoral-img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    display: block;
+}
+
+.capa-mes {
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.capa-numero {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.capa-content {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.capa-pastoral-titulo {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 20px;
+}
+
+.capa-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding: 8px 0 0;
+}
+
+.capa-logos {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.capa-logo {
+    width: 99px;
+    height: auto;
+    object-fit: contain;
+    background: white;
+    padding-right: 9px;
+    border-radius: 9px;
+}
+
+.capa-social {
+    display: flex;
+    gap: 10px;
+}
+
+.capa-social a {
+    width: 32px;
+    height: 32px;
+    display: block;
+    color: #000000;
+}
+
+.capa-social img,
+.capa-social svg {
+    width: 100%;
+    height: 100%;
+    color: #000000;
+    stroke: #000000;
+}
+
+/* PASTORAL E OUTRAS SEÇÕES */
+.page-pastoral,
+.page-escalas,
+.page-aniversariantes,
+.page-agenda,
+.page-avisos,
+.page-endereco,
+.page-equipe,
+.page-programacao,
+.page-dizimos,
+.page-anuncios {
+    padding: 16px 20px 16px 20px;
+}
+
+/* Ícones de seção (pastoral, agenda, etc) */
+.section-icon {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 0 auto 8px;
+}
+
+/* Títulos de seção com fundo roxo */
+.section-title {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--text-primary);
+    text-align: center;
+    padding: 10px 16px;
+    margin: 0 -16px 20px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    border-radius: 0;
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* Decoração de aba acima do título */
+.section-title::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border-radius: 0;
+}
+
+.pastoral-reference {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-style: normal;
+}
+
+.pastoral-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-primary);
+    text-align: justify;
+}
+
+.pastoral-header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--primary-color);
+    position: relative;
+}
+
+.pastoral-font-controls {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.pastoral-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.pastoral-titulo {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.pastoral-versiculo {
+    background: transparent;
+    padding: 0;
+    border-left: none;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.pastoral-versiculo .leia {
+    font-style: normal;
+}
+
+.pastoral-referencia {
+    text-align: right;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.pastoral-texto {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Tamanhos de fonte ajustáveis para acessibilidade */
+.pastoral-texto.font-normal {
+    font-size: 14px;
+}
+
+.pastoral-texto.font-large {
+    font-size: 16px;
+}
+
+.pastoral-texto.font-huge {
+    font-size: 18px;
+}
+
+.pastoral-texto.font-extra-huge {
+    font-size: 22px;
+}
+
+/* Títulos h1 padronizados para todas as páginas */
+.pastoral-header h1,
+.page-escalas > h1,
+.aniv-header h1,
+.agenda-header h1,
+.generic-page h1 {
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.page-escalas > h1 svg,
+.aniv-header h1 svg,
+.agenda-header h1 svg,
+.generic-page h1 svg {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+/* Exceção: Pastoral mantém centralizado */
+.pastoral-header h1 {
+    text-align: center;
+    justify-content: center;
+}
+
+.pastoral-texto h1 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+
+.pastoral-texto h2 {
+    font-size: 18px;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.pastoral-texto h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+.pastoral-texto p {
+    margin-bottom: 12px;
+}
+
+/* ESCALAS */
+.page-escalas {
+    padding: 16px 20px;
+}
+
+.escalas-section {
+    margin-bottom: 24px;
+}
+
+.escalas-section h3 {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: rgba(255, 255, 240, 0.9);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px 12px;
+    margin-bottom: 2px;
+    border-radius: 0;
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.1);
+    text-align: right;
+}
+
+/* Subtítulos secundários (Culto Matutino, Adultos, Quartas, etc) */
+.escalas-section h3 + h3 {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 240, 0.9);
+    backdrop-filter: blur(15px) saturate(150%);
+    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    margin-top: 0;
+    text-align: right;
+    border-radius: 0;
+}
+
+.escalas-table {
+    width: 100%;
+    font-size: 12px;
+    border-collapse: collapse;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+}
+
+.escalas-table td {
+    padding: 6px 8px;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+}
+
+.escalas-table td:first-child {
+    font-weight: 600;
+    width: 60px;
+}
+
+/* Zebra stripe sutil para diferenciar linhas */
+.escalas-table tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+/* Equipe Pastoral - 2 colunas divididas ao meio */
+.equipe-table tr:nth-child(even) {
+    background: transparent;
+}
+
+.equipe-table td:first-child {
+    width: 50%;
+}
+
+.equipe-table td:last-child {
+    width: 50%;
+}
+
+/* Programação Semanal - 2 colunas divididas ao meio */
+.programacao-table td:first-child {
+    width: 50%;
+}
+
+.programacao-table td:last-child {
+    width: 50%;
+}
+
+.escalas-legenda {
+    font-size: 10px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* ANIVERSARIANTES */
+.page-aniversariantes {
+    padding: 16px 20px;
+}
+
+.aniv-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.aniv-versiculo {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.aniv-content {
+    display: flex;
+    gap: 20px;
+}
+
+.aniv-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.aniv-lista {
+    flex: 1;
+    columns: 2;
+    column-gap: 16px;
+}
+
+.aniv-item {
+    font-size: 12px;
+    margin-bottom: 6px;
+    break-inside: avoid;
+}
+
+.aniv-data {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-right: 4px;
+}
+
+/* AGENDA */
+.page-agenda {
+    padding: 16px 20px;
+}
+
+.agenda-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.agenda-content {
+    display: flex;
+    gap: 20px;
+}
+
+.agenda-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.agenda-lista {
+    flex: 1;
+}
+
+.agenda-item {
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px) saturate(200%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.15);
+    line-height: 1.6;
+}
+
+.agenda-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.agenda-left-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3px 12px;
+    align-items: center;
+}
+
+.agenda-data {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: left;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 6px;
+}
+
+.agenda-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text-primary);
+}
+
+.agenda-hora {
+    font-size: 18px;
+    font-weight: 300;
+    color: #000000;
+    text-align: right;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+    align-self: center;
+}
+
+.agenda-descricao {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-top: 0;
+}
+
+/* Itens em destaque (agenda e programação) */
+.item-destaque {
+    color: #ff0000 !important;
+}
+
+.item-destaque .agenda-data,
+.item-destaque .agenda-titulo,
+.item-destaque td {
+    color: #ff0000 !important;
+}
+
+.alert-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    color: #fbbf24;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* GENERIC PAGE */
+.generic-page {
+    padding: 16px 20px;
+}
+
+.generic-content {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* DIZIMOS - Cards Container */
+.dizimos-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 12px;
+}
+
+.dizimos-card {
+    background: white;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.dizimos-card-title {
+    background: rgba(255, 255, 240, 0.9);
+    color: var(--text-primary);
+    padding: 8px 10px;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
+}
+
+.dizimos-card-title i {
+    width: 16px;
+    height: 16px;
+}
+
+.dizimos-card-content {
+    padding: 12px;
+}
+
+/* Info Rows - Dados Bancários */
+.dizimos-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+}
+
+.dizimos-info-row:last-child {
+    border-bottom: none;
+}
+
+.dizimos-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.dizimos-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: 'Courier New', monospace;
+}
+
+/* Card PIX */
+.dizimos-card-pix .dizimos-card-content {
+    text-align: center;
+}
+
+.dizimos-pix-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: rgba(0, 0, 0, 0.03);
+    padding: 10px;
+    border-radius: 0;
+    font-family: 'Courier New', monospace;
+    border: 1px dashed rgba(0, 0, 0, 0.2);
+    margin-bottom: 12px;
+    word-break: break-all;
+}
+
+/* QR Code PIX */
+.dizimos-qr-code {
+    width: 140px;
+    height: 140px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 0;
+    border: 0.5px solid rgba(0, 0, 0, 0.15);
+    background: white;
+    padding: 4px;
+}
+
+/* ANIVERSARIANTES E AGENDA - Estilos Adicionais */
+.aniv-lista-nova {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+    font-size: 13px;
+}
+
+.aniv-lista-nova li {
+    list-style: none;
+    padding: 4px 0;
+    border-bottom: 1px dotted #ddd;
+}
+
+.agenda-lista-nova .agenda-item {
+    background: white;
+    border-left: none;
+    padding: 8px 0;
+}
+
+.agenda-lista-nova .agenda-data {
+    color: var(--primary-purple);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+/* PRINT STYLES */
+@media print {
+    .viewer-header {
+        display: none;
+    }
+    
+    .boletim-wrapper {
+        padding: 0;
+    }
+    
+    .boletim-page {
+        box-shadow: none;
+        margin-bottom: 0;
+        page-break-after: always;
+    }
+}
+
+/* DESKTOP RESPONSIVE */
+@media (min-width: 769px) {
+    .capa-mes {
+        font-size: 18px;
+    }
+    
+    .capa-pastoral-titulo {
+        font-size: 32px;
+    }
+    
+    .pastoral-titulo {
+        font-size: 26px;
+    }
+    
+    .pastoral-texto {
+        font-size: 16px;
+    }
+    
+    .aniv-lista {
+        columns: 3;
+    }
+}

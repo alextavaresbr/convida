@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boletim - Visualização</title>
+    
+    <!-- Meta tags Open Graph para WhatsApp/Facebook -->
+    <meta property="og:title" content="Boletim IMVC" id="og-title">
+    <meta property="og:description" content="Igreja Metodista em Vila Conde do Pinhal" id="og-description">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="" id="og-image">
+    <meta property="og:url" content="" id="og-url">
+    
+    <!-- Meta tags Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Boletim IMVC" id="twitter-title">
+    <meta name="twitter:description" content="Igreja Metodista em Vila Conde do Pinhal" id="twitter-description">
+    <meta name="twitter:image" content="" id="twitter-image">
+    
+    <link rel="stylesheet" href="viewer.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://api.pirsch.io/pa.js"
+        id="pianjs"
+        data-code="eK1Sc9mMoEW3jFUqJ0UUaT3UB8iF4GbQ"></script>
+</head>
+<body>
+    <div class="viewer-header">
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <a href="home.html" class="back-btn">← Voltar</a>
+            <button id="share-btn" class="font-control-btn" title="Compartilhar boletim">
+                <i data-lucide="share-2" style="width: 18px; height: 18px;"></i>
+            </button>
+        </div>
+        <div style="flex: 1;"></div>
+        <div style="display: flex; gap: 8px; align-items: center;">
+            <button id="print-btn" class="print-btn">
+                <i data-lucide="printer" style="width: 16px; height: 16px;"></i>
+                Imprimir
+            </button>
+        </div>
+    </div>
+    
+    <div class="viewer-container">
+        <div class="boletim-wrapper" id="boletim-wrapper">
+            <!-- O boletim será gerado aqui -->
+            <div id="loading">Carregando boletim...</div>
+        </div>
+    </div>
+
+    <script src="viewer.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

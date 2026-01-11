@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Boletim Web</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdn.quilljs.com/1.3.6/quill.snow.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="login-screen" class="login-container">
+        <div class="login-box">
+            <h1>Acesso Administrativo</h1>
+            <form id="login-form" onsubmit="return false;">
+                <input type="password" id="password" placeholder="Digite a senha" required>
+                <button type="submit">Entrar</button>
+                <p id="login-error" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="admin-container" style="display: none;">
+        <header class="admin-header">
+            <h1>Editor de Boletim</h1>
+            <div class="header-actions">
+                <button id="auto-fill-btn" class="btn-auto-fill" title="Preencher com dados de teste">
+                    <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
+                    AUTO PREENCHER
+                </button>
+                <button id="manage-boletins-btn" class="btn-manage" title="Gerenciar boletins salvos">
+                    <i data-lucide="folder-open" style="width: 16px; height: 16px;"></i>
+                    Gerenciar
+                </button>
+                <span id="current-month-display"></span>
+                <button id="theme-toggle" class="btn-theme" title="Alternar tema">
+                    <i data-lucide="moon" class="theme-icon" style="width: 18px; height: 18px;"></i>
+                </button>
+                <button id="save-btn" class="btn-primary">Salvar Boletim</button>
+                <button id="preview-btn" class="btn-secondary">Visualizar</button>
+                <a href="home.html" class="btn-home" title="Ir para Home">
+                    <i data-lucide="home" style="width: 18px; height: 18px;"></i>
+                </a>
+                <button id="logout-btn" class="btn-logout">Sair</button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <nav class="tabs-navigation">
+                <button class="tab-btn active" data-tab="capa">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Capa</span>
+                </button>
+                <button class="tab-btn" data-tab="pastoral">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Pastoral</span>
+                </button>
+                <button class="tab-btn" data-tab="escalas">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Escalas</span>
+                </button>
+                <button class="tab-btn" data-tab="aniversariantes">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Aniversariantes</span>
+                </button>
+                <button class="tab-btn" data-tab="agenda">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Agenda</span>
+                </button>
+                <button class="tab-btn" data-tab="avisos">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Avisos</span>
+                </button>
+                <button class="tab-btn" data-tab="endereco">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Endereço</span>
+                </button>
+                <button class="tab-btn" data-tab="equipe">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Equipe Pastoral</span>
+                </button>
+                <button class="tab-btn" data-tab="programacao">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Programação</span>
+                </button>
+                <button class="tab-btn" data-tab="dizimos">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Dízimos e Ofertas</span>
+                </button>
+                <button class="tab-btn" data-tab="anuncios">
+                    <i data-lucide="check" class="tab-check" style="width: 14px; height: 14px;"></i>
+                    <span class="tab-label">Expediente</span>
+                </button>
+            </nav>
+
+            <div class="tab-content-wrapper">
+                <!-- ABA CAPA -->
+                <div id="tab-capa" class="tab-content active">
+                    <h2>Capa do Boletim</h2>
+                    
+                    <div class="form-group">
+                        <label>Mês e Ano</label>
+                        <div class="inline-group">
+                            <select id="capa-mes" required>
+                                <option value="">Selecione o mês</option>
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+                            <input type="number" id="capa-ano" placeholder="2026" min="2000" max="2100" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capa-igreja">Nome da Igreja</label>
+                        <input type="text" id="capa-igreja" placeholder="Igreja Metodista em Vila Conde do Pinhal">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capa-numero">Número do Boletim</label>
+                        <input type="number" id="capa-numero" placeholder="38" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capa-cor-logo">Cor do Logo "Convida"</label>
+                        <div class="color-picker-group">
+                            <div class="color-options">
+                                <label class="color-option">
+                                    <input type="radio" name="logo-color" value="#88b04b" checked>
+                                    <span class="color-swatch" style="background-color: #88b04b;" title="Verde Esperança"></span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="radio" name="logo-color" value="#6169ab">
+                                    <span class="color-swatch" style="background-color: #6169ab;" title="Azul Metodista"></span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="radio" name="logo-color" value="#ffbd53">
+                                    <span class="color-swatch" style="background-color: #ffbd53;" title="Amarelo Dourado"></span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="radio" name="logo-color" value="#ba244a">
+                                    <span class="color-swatch" style="background-color: #ba244a;" title="Vermelho Rubi"></span>
+                                </label>
+                                <label class="color-option">
+                                    <input type="radio" name="logo-color" value="#000000">
+                                    <span class="color-swatch" style="background-color: #000000; border: 1px solid #ddd;" title="Preto Clássico"></span>
+                                </label>
+                            </div>
+                            <div style="margin-top: 12px; display: flex; gap: 8px; align-items: center;">
+                                <label style="font-size: 14px; font-weight: 500;">Ou cor customizada:</label>
+                                <input type="color" id="custom-logo-color" style="width: 50px; height: 32px; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;" title="Escolher cor customizada">
+                                <input type="text" id="custom-logo-color-hex" placeholder="#000000" maxlength="7" style="width: 90px; padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-family: monospace; font-size: 13px;" title="Código hex da cor">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capa-pastoral-titulo">Título da Pastoral</label>
+                        <input type="text" id="capa-pastoral-titulo" placeholder="Ex: O Verbo se fez carne e habitou entre nós">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Imagem da Pastoral (1:1)</label>
+                        <div class="image-upload-area" id="capa-pastoral-img-area">
+                            <input type="file" id="capa-pastoral-img" accept="image/*" class="file-input">
+                            <div class="upload-placeholder">
+                                <span>📁 Arraste a imagem aqui ou clique para selecionar</span>
+                            </div>
+                            <img class="image-preview" style="display: none;">
+                            <button type="button" class="btn-remove-image" style="display: none;">✕ Remover</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Logotipos Institucionais (até 2 imagens 1:1)</label>
+                        <div class="logos-container">
+                            <div class="image-upload-area" id="capa-logo1-area">
+                                <input type="file" id="capa-logo1" accept="image/*" class="file-input">
+                                <div class="upload-placeholder">
+                                    <span>Logo 1</span>
+                                </div>
+                                <img class="image-preview" style="display: none;">
+                                <button type="button" class="btn-remove-image" style="display: none;">✕</button>
+                            </div>
+                            <div class="image-upload-area" id="capa-logo2-area">
+                                <input type="file" id="capa-logo2" accept="image/*" class="file-input">
+                                <div class="upload-placeholder">
+                                    <span>Logo 2</span>
+                                </div>
+                                <img class="image-preview" style="display: none;">
+                                <button type="button" class="btn-remove-image" style="display: none;">✕</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Redes Sociais (preencha apenas as que deseja exibir)</label>
+                        <div class="social-inputs">
+                            <div class="social-input-group">
+                                <span class="social-icon"><i data-lucide="youtube" style="width: 18px; height: 18px;"></i></span>
+                                <input type="url" id="capa-youtube" placeholder="YouTube (URL completa)">
+                            </div>
+                            <div class="social-input-group">
+                                <span class="social-icon"><i data-lucide="facebook" style="width: 18px; height: 18px;"></i></span>
+                                <input type="url" id="capa-facebook" placeholder="Facebook (URL completa)">
+                            </div>
+                            <div class="social-input-group">
+                                <span class="social-icon"><i data-lucide="instagram" style="width: 18px; height: 18px;"></i></span>
+                                <input type="url" id="capa-instagram" placeholder="Instagram (URL completa)">
+                            </div>
+                            <div class="social-input-group">
+                                <span class="social-icon"><i data-lucide="message-circle" style="width: 18px; height: 18px;"></i></span>
+                                <input type="url" id="capa-whatsapp" placeholder="WhatsApp (URL completa)">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-next" onclick="saveAndNext('capa')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA PASTORAL -->
+                <div id="tab-pastoral" class="tab-content">
+                    <h2>Pastoral</h2>
+                    <p class="info-text">O título da pastoral será o mesmo da capa</p>
+                    
+                    <div class="form-group">
+                        <label for="pastoral-versiculo">Versículo Bíblico</label>
+                        <textarea id="pastoral-versiculo" rows="3" placeholder="Digite o texto do versículo"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pastoral-referencia">Referência Bíblica</label>
+                        <input type="text" id="pastoral-referencia" placeholder="Ex: João 1:14">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Texto da Pastoral</label>
+                        <div id="pastoral-editor" class="editor-container"></div>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('pastoral')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA ESCALAS -->
+                <div id="tab-escalas" class="tab-content">
+                    <h2>Escalas</h2>
+                    
+                    <!-- Culto Matutino -->
+                    <div class="section-block">
+                        <h3>Culto Matutino</h3>
+                        <div class="form-group">
+                            <label for="escalas-matutino-horario">Horário</label>
+                            <input type="text" id="escalas-matutino-horario" placeholder="Ex: 10h">
+                        </div>
+                        <div id="escalas-matutino-list" class="dynamic-list">
+                            <!-- Linhas serão adicionadas dinamicamente -->
+                        </div>
+                        <button type="button" class="btn-add" onclick="addMatutinoRow()">+ Adicionar Linha</button>
+                    </div>
+
+                    <!-- Diaconia -->
+                    <div class="section-block">
+                        <h3>Diaconia - Culto Matutino</h3>
+                        <div id="escalas-diaconia-list" class="dynamic-list"></div>
+                        <button type="button" class="btn-add" onclick="addDiaconiaRow()">+ Adicionar Linha</button>
+                    </div>
+
+                    <!-- Escola Dominical Adultos -->
+                    <div class="section-block">
+                        <h3>Escola Dominical - Adultos</h3>
+                        <div id="escalas-ebd-adultos-list" class="dynamic-list"></div>
+                        <button type="button" class="btn-add" onclick="addEbdAdultosRow()">+ Adicionar Linha</button>
+                    </div>
+
+                    <!-- Rede Kids -->
+                    <div class="section-block">
+                        <h3>Rede Kids</h3>
+                        <div id="escalas-kids-list" class="dynamic-list"></div>
+                        <button type="button" class="btn-add" onclick="addKidsRow()">+ Adicionar Linha</button>
+                    </div>
+
+                    <!-- EBD Quartas -->
+                    <div class="section-block">
+                        <h3>Reunião de Oração</h3>
+                        <div class="form-group">
+                            <label for="escalas-ebd-quartas-horario">Horário</label>
+                            <input type="text" id="escalas-ebd-quartas-horario" placeholder="Ex: Quartas, 20h">
+                        </div>
+                        <div id="escalas-ebd-quartas-list" class="dynamic-list"></div>
+                        <button type="button" class="btn-add" onclick="addEbdQuartasRow()">+ Adicionar Linha</button>
+                    </div>
+
+                    <!-- Estudo Bíblico -->
+                    <div class="section-block">
+                        <h3>Estudo Bíblico</h3>
+                        <div class="form-group">
+                            <label for="escalas-estudo-horario">Horário</label>
+                            <input type="text" id="escalas-estudo-horario" placeholder="Ex: Quartas, 20h">
+                        </div>
+                        <div id="escalas-estudo-list" class="dynamic-list"></div>
+                        <button type="button" class="btn-add" onclick="addEstudoRow()">+ Adicionar Linha</button>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('escalas')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA ANIVERSARIANTES -->
+                <div id="tab-aniversariantes" class="tab-content">
+                    <h2>Aniversariantes</h2>
+                    
+                    <div class="form-group">
+                        <label for="aniv-versiculo">Texto Bíblico</label>
+                        <textarea id="aniv-versiculo" rows="2" placeholder="Digite o texto bíblico"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ilustração (1:1)</label>
+                        <div class="image-upload-area" id="aniv-img-area">
+                            <input type="file" id="aniv-img" accept="image/*" class="file-input">
+                            <div class="upload-placeholder">
+                                <span>📁 Arraste a imagem aqui</span>
+                            </div>
+                            <img class="image-preview" style="display: none;">
+                            <button type="button" class="btn-remove-image" style="display: none;">✕ Remover</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lista de Aniversariantes</label>
+                        <div id="aniv-list" class="dynamic-list"></div>
+                        <button type="button" class="btn-add" onclick="addAniversarianteRow()">+ Adicionar Aniversariante</button>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('aniversariantes')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA AGENDA -->
+                <div id="tab-agenda" class="tab-content">
+                    <h2>Agenda</h2>
+                    
+                    <div class="form-group">
+                        <label>Ilustração (1:1)</label>
+                        <div class="image-upload-area" id="agenda-img-area">
+                            <input type="file" id="agenda-img" accept="image/*" class="file-input">
+                            <div class="upload-placeholder">
+                                <span>📁 Arraste a imagem aqui</span>
+                            </div>
+                            <img class="image-preview" style="display: none;">
+                            <button type="button" class="btn-remove-image" style="display: none;">✕ Remover</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Eventos</label>
+                        <div id="agenda-list" class="dynamic-list"></div>
+                        <button type="button" class="btn-add" onclick="addAgendaRow()">+ Adicionar Evento</button>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('agenda')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA AVISOS -->
+                <div id="tab-avisos" class="tab-content">
+                    <h2>Avisos</h2>
+                    <div class="form-group">
+                        <div id="avisos-editor" class="editor-container"></div>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('avisos')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA ENDEREÇO -->
+                <div id="tab-endereco" class="tab-content">
+                    <h2>Endereço</h2>
+                    <div class="form-group">
+                        <div id="endereco-editor" class="editor-container"></div>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('endereco')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA EQUIPE PASTORAL -->
+                <div id="tab-equipe" class="tab-content">
+                    <h2>Equipe Pastoral</h2>
+                    <div id="equipe-list" class="dynamic-list"></div>
+                    <button type="button" class="btn-add" onclick="addEquipeRow()">+ Adicionar Membro</button>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('equipe')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA PROGRAMAÇÃO SEMANAL -->
+                <div id="tab-programacao" class="tab-content">
+                    <h2>Programação Semanal</h2>
+                    <div id="programacao-list" class="dynamic-list"></div>
+                    <button type="button" class="btn-add" onclick="addProgramacaoRow()">+ Adicionar Atividade</button>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('programacao')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA DÍZIMOS E OFERTAS -->
+                <div id="tab-dizimos" class="tab-content">
+                    <h2>Dízimos e Ofertas</h2>
+                    
+                    <div class="form-group">
+                        <label for="dizimos-banco">Banco</label>
+                        <input type="text" id="dizimos-banco" placeholder="Nome do banco">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dizimos-agencia">Agência</label>
+                        <input type="text" id="dizimos-agencia" placeholder="Número da agência">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dizimos-conta">Conta Corrente</label>
+                        <input type="text" id="dizimos-conta" placeholder="Número da conta">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dizimos-pix">PIX</label>
+                        <input type="text" id="dizimos-pix" placeholder="Chave PIX">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Logotipo do Banco</label>
+                        <div class="image-upload-area" id="dizimos-logo-area">
+                            <input type="file" id="dizimos-logo" accept="image/*" class="file-input">
+                            <div class="upload-placeholder">
+                                <span>📁 Logo do banco</span>
+                            </div>
+                            <img class="image-preview" style="display: none;">
+                            <button type="button" class="btn-remove-image" style="display: none;">✕ Remover</button>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next" onclick="saveAndNext('dizimos')">Salvar e Avançar →</button>
+                    </div>
+                </div>
+
+                <!-- ABA EXPEDIENTE -->
+                <div id="tab-anuncios" class="tab-content">
+                    <h2>Expediente</h2>
+                    <div class="form-group">
+                        <div id="anuncios-editor" class="editor-container"></div>
+                    </div>
+                    
+                    <div class="tab-actions">
+                        <button type="button" class="btn-prev" onclick="goToPrevTab()">← Voltar</button>
+                        <button type="button" class="btn-next btn-finish" onclick="saveAndNext('anuncios')">✓ Finalizar e Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Gerenciamento -->
+    <div id="manage-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Gerenciar Boletins</h2>
+                <button class="modal-close" onclick="closeManageModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="boletins-list" class="boletins-list">
+                    <p class="loading">Carregando boletins...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="admin.js?v=20260110"></script>
+    <script>
+        // Inicializar ícones Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>

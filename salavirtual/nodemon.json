@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "apps/"
+  ],
+  "ignore": [
+    "api/*",
+    "data/*",
+    "backup/*",
+    "*.log",
+    "*.txt",
+    "node_modules/*"
+  ],
+  "ext": "js,json,html,css",
+  "verbose": false
+}

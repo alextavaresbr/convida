@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste Cache</title>
+</head>
+<body>
+    <h1>Teste de Cache - Admin.js</h1>
+    <div id="resultado"></div>
+    
+    <script src="admin.js?v=20260110"></script>
+    <script>
+        // Executar autoFillForm e verificar os valores
+        setTimeout(() => {
+            const bancoInput = document.createElement('input');
+            bancoInput.id = 'dizimos-banco';
+            document.body.appendChild(bancoInput);
+            
+            const agenciaInput = document.createElement('input');
+            agenciaInput.id = 'dizimos-agencia';
+            document.body.appendChild(agenciaInput);
+            
+            const contaInput = document.createElement('input');
+            contaInput.id = 'dizimos-conta';
+            document.body.appendChild(contaInput);
+            
+            const pixInput = document.createElement('input');
+            pixInput.id = 'dizimos-pix';
+            document.body.appendChild(pixInput);
+            
+            // Simular o código do autoFillForm
+            document.getElementById('dizimos-banco').value = 'Bradesco';
+            document.getElementById('dizimos-agencia').value = '2720';
+            document.getElementById('dizimos-conta').value = 'C/C 13.959-9';
+            document.getElementById('dizimos-pix').value = '04.083.369/0042-34';
+            
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = `
+                <h2>Valores preenchidos:</h2>
+                <p><strong>Banco:</strong> ${document.getElementById('dizimos-banco').value}</p>
+                <p><strong>Agência:</strong> ${document.getElementById('dizimos-agencia').value}</p>
+                <p><strong>Conta:</strong> ${document.getElementById('dizimos-conta').value}</p>
+                <p><strong>PIX:</strong> ${document.getElementById('dizimos-pix').value}</p>
+                <hr>
+                <p>Se aparecer "Bradesco", o admin.js está correto!</p>
+            `;
+        }, 500);
+    </script>
+</body>
+</html>

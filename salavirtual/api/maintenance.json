@@ -1,0 +1,67 @@
+{
+  "maintenance": false,
+  "timestamp": "2025-09-27T18:55:55.878Z",
+  "admin": "Admin Timotin",
+  "history": [
+    {
+      "maintenance": false,
+      "timestamp": "2025-09-04T12:00:00.000Z",
+      "admin": "Sistema"
+    },
+    {
+      "maintenance": true,
+      "timestamp": "2025-09-04T03:47:10.012Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": false,
+      "timestamp": "2025-09-04T03:47:10.832Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": true,
+      "timestamp": "2025-09-04T03:48:03.748Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": false,
+      "timestamp": "2025-09-04T03:48:05.347Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": true,
+      "timestamp": "2025-09-04T03:57:02.117Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": false,
+      "timestamp": "2025-09-04T05:48:33.239Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": true,
+      "timestamp": "2025-09-06T13:55:43.558Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": false,
+      "timestamp": "2025-09-08T02:12:56.970Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": true,
+      "timestamp": "2025-09-10T18:17:38.551Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": false,
+      "timestamp": "2025-09-10T18:37:38.043Z",
+      "admin": "Admin Timotin"
+    },
+    {
+      "maintenance": true,
+      "timestamp": "2025-09-17T06:27:48.890Z",
+      "admin": "Admin Timotin"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+.rating{overflow:hidden;display:inline-block;font-size:0.9em;position:relative}.rating-input{float:right;width:25px;height:25px;padding:0;margin:0
+0 0 -25px;opacity:0}.rating-star{color:#999;font-weight:normal;border:1px
+solid #CCC;margin-right:3px;position:relative;float:left;display:block;width:22px;height:30px;text-align:center;line-height:2.3em;background-color:#FFF;cursor:pointer}.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover+.rating-star{background-color:#666;color:#FFF}.rating-input:checked+.rating-star{background-color:#333 !important;color:#FFF}.text-center{text-align:center}#head,#title,#course,form{max-width:400px}.criteria{max-width:400px}@media (min-width: 750px){#head,#title,#course,form{max-width:700px}}#title
+h4{margin-bottom:1rem}#course
+h5{background-color:#EEE;padding:10px
+20px;margin-bottom:20px;line-height:2.3rem}#course h5
+span{font-size:1.6rem;color:#666;font-weight:bold}@media (min-width: 550px){#course
+h5{padding:15px
+20px}#course h5
+span{font-size:2rem}}.criteria
+h5{margin-bottom:1rem}.criteria
+p{}.criteria
+.info{margin-bottom:1rem;color:#999;font-size:1.3rem}.actions{margin:0
+0 40px 0}.missing{color:#FF4136 !important}

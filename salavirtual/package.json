@@ -1,0 +1,63 @@
+{
+  "name": "salavirtual-modular",
+  "version": "3.0.0",
+  "description": "Sistema de Sala Virtual - Arquitetura Modular",
+  "main": "apps/biblos360.net/src/server.js",
+  "scripts": {
+    "start": "node apps/biblos360.net/src/server.js",
+    "dev": "nodemon apps/biblos360.net/src/server.js",
+    "tim": "node -e \"console.log('Tim server would start here - check apps/tim.biblos360.net/')\"",
+    "tim:dev": "nodemon --watch apps/tim.biblos360.net apps/biblos360.net/src/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint apps/biblos360.net/src/ apps/tim.biblos360.net/src/",
+    "lint:fix": "eslint apps/biblos360.net/src/ apps/tim.biblos360.net/src/ --fix",
+    "setup:database": "node migration/setup-database.js",
+    "migrate:users": "node migration/migrate-users.js",
+    "migrate:simple": "node migration/migrate-users-simple.js",
+    "test:connection": "node migration/test-connection.js"
+  },
+  "keywords": [
+    "virtual-room",
+    "socket.io",
+    "express",
+    "biblos360",
+    "modular-architecture"
+  ],
+  "author": "Biblos360 Team",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.54.0",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "helmet": "^7.0.0",
+    "joi": "^17.9.2",
+    "jsonwebtoken": "^9.0.2",
+    "mime-types": "^2.1.35",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cache": "^5.1.2",
+    "nodemailer": "^7.0.6",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.6.2",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
