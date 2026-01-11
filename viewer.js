@@ -129,9 +129,20 @@ function renderBoletim() {
         return;
     }
     
-    // Atualizar título da página
+    // Atualizar título da página e meta tags
     const mesNome = meses[parseInt(boletimData.capa.mes)];
-    document.title = `Boletim IMVC - ${mesNome} de ${boletimData.capa.ano}`;
+    const tituloCompleto = `Boletim IMVC - ${mesNome} de ${boletimData.capa.ano}`;
+    const descricao = `${boletimData.capa.pastoralTitulo || 'Igreja Metodista em Vila Conde do Pinhal'}`;
+    
+    document.title = tituloCompleto;
+    
+    // Atualizar Open Graph
+    document.getElementById('og-title').setAttribute('content', tituloCompleto);
+    document.getElementById('og-description').setAttribute('content', descricao);
+    
+    // Atualizar Twitter Card
+    document.getElementById('twitter-title').setAttribute('content', tituloCompleto);
+    document.getElementById('twitter-description').setAttribute('content', descricao);
     
     console.log('Renderizando boletim com dados:', boletimData);
     console.log('Verificando imagens da capa:', {
