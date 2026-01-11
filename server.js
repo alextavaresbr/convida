@@ -26,65 +26,10 @@ const server = http.createServer((req, res) => {
         return;
     }
 
-    // Página inicial
+    // Página inicial - redirecionar para home.html
     if (req.method === 'GET' && req.url === '/') {
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-        res.end(`
-            <!DOCTYPE html>
-            <html lang="pt-BR">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Servidor Boletim Web</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        max-width: 800px;
-                        margin: 50px auto;
-                        padding: 20px;
-                        background: #f5f5f5;
-                    }
-                    .container {
-                        background: white;
-                        padding: 30px;
-                        border-radius: 8px;
-                        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                    }
-                    h1 { color: #4F46E5; }
-                    .status { color: #10B981; font-weight: bold; }
-                    .endpoint { background: #f9fafb; padding: 10px; margin: 5px 0; border-radius: 4px; }
-                    .method { color: #4F46E5; font-weight: bold; }
-                    a { color: #4F46E5; text-decoration: none; }
-                    a:hover { text-decoration: underline; }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <h1>✓ Servidor Boletim Web</h1>
-                    <p class="status">Servidor rodando na porta 3000</p>
-                    
-                    <h2>Endpoints da API:</h2>
-                    <div class="endpoint"><span class="method">POST</span> /api/save-boletim</div>
-                    <div class="endpoint"><span class="method">GET</span> /api/check-boletim/:filename</div>
-                    <div class="endpoint"><span class="method">GET</span> /api/load-boletim/:filename</div>
-                    <div class="endpoint"><span class="method">GET</span> /api/list-boletins</div>
-                    <div class="endpoint"><span class="method">DELETE</span> /api/delete-boletim/:filename</div>
-                    
-                    <h2>Como usar:</h2>
-                    <p>Para acessar o painel administrativo, abra o arquivo <strong>admin.html</strong> diretamente no seu navegador.</p>
-                    <p><strong>Opção 1:</strong> Vá até a pasta do projeto e clique duas vezes no arquivo <code>admin.html</code></p>
-                    <p><strong>Opção 2:</strong> Copie e cole este caminho na barra de endereços do navegador:</p>
-                    <div style="background: #f0f0f0; padding: 15px; border-radius: 4px; margin: 10px 0; font-family: monospace; word-break: break-all;">
-                        file:///${__dirname.replace(/\\/g, '/')}/admin.html
-                    </div>
-                    <p><strong>Opção 3:</strong> Use o PowerShell para abrir automaticamente:</p>
-                    <div style="background: #1e293b; color: #10B981; padding: 15px; border-radius: 4px; margin: 10px 0; font-family: monospace;">
-                        Start-Process "${__dirname}\\admin.html"
-                    </div>
-                </div>
-            </body>
-            </html>
-        `);
+        res.writeHead(301, { 'Location': '/home.html' });
+        res.end();
         return;
     }
 
