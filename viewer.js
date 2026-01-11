@@ -433,6 +433,15 @@ function renderPastoral() {
         <div class="pastoral-header">
             <h1>PASTORAL</h1>
             <div class="pastoral-titulo">${boletimData.capa.pastoralTitulo}</div>
+            <div class="pastoral-font-controls">
+                <button id="font-decrease-btn" class="font-control-btn" title="Diminuir fonte">
+                    <i data-lucide="minus" style="width: 16px; height: 16px;"></i>
+                </button>
+                <span style="font-size: 12px; font-weight: 600; min-width: 40px; text-align: center;">A</span>
+                <button id="font-increase-btn" class="font-control-btn" title="Aumentar fonte">
+                    <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                </button>
+            </div>
         </div>
         
         <div class="pastoral-versiculo">
