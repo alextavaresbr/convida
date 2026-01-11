@@ -144,6 +144,14 @@ function renderBoletim() {
     document.getElementById('twitter-title').setAttribute('content', tituloCompleto);
     document.getElementById('twitter-description').setAttribute('content', descricao);
     
+    // Atualizar imagem de preview (Open Graph/Twitter)
+    if (boletimData.capa.pastoralImg) {
+        document.getElementById('og-image').setAttribute('content', boletimData.capa.pastoralImg);
+        document.getElementById('twitter-image').setAttribute('content', boletimData.capa.pastoralImg);
+        // Também para Twitter
+        // Se quiser adicionar <meta name="twitter:image">, adicione no HTML e atualize aqui
+    }
+    
     console.log('Renderizando boletim com dados:', boletimData);
     console.log('Verificando imagens da capa:', {
         pastoralImg: boletimData.capa?.pastoralImg ? 'OK (' + boletimData.capa.pastoralImg.substring(0, 50) + '...)' : 'VAZIO',
