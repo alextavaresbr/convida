@@ -65,15 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('print-btn').addEventListener('click', function() {
         window.print();
     });
-    
-    // Botões de controle de fonte
-    document.getElementById('font-increase-btn').addEventListener('click', function() {
-        updateFontSize(1);
-    });
-    
-    document.getElementById('font-decrease-btn').addEventListener('click', function() {
-        updateFontSize(-1);
-    });
 });
 
 async function loadBoletim() {
@@ -272,6 +263,22 @@ function renderBoletim() {
     
     // Inicializar todos os ícones Lucide após renderizar todas as páginas
     lucide.createIcons();
+    
+    // Configurar event listeners dos botões de fonte na pastoral
+    const fontIncreaseBtn = document.getElementById('font-increase-btn');
+    const fontDecreaseBtn = document.getElementById('font-decrease-btn');
+    
+    if (fontIncreaseBtn) {
+        fontIncreaseBtn.addEventListener('click', function() {
+            updateFontSize(1);
+        });
+    }
+    
+    if (fontDecreaseBtn) {
+        fontDecreaseBtn.addEventListener('click', function() {
+            updateFontSize(-1);
+        });
+    }
     
     // Carregar preferência de tamanho de fonte
     setTimeout(loadFontPreference, 100);
