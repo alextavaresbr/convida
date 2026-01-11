@@ -139,17 +139,56 @@ function renderBoletim() {
     // Atualizar Open Graph
     document.getElementById('og-title').setAttribute('content', tituloCompleto);
     document.getElementById('og-description').setAttribute('content', descricao);
+    document.getElementById('og-url').setAttribute('content', window.location.href);
+    
+    // Atualizar imagem do Open Graph com a imagem da capa da pastoral
+    if (boletimData.capa.pastoralImg) {
+        // Se for base64 (data URI), usar diretamente
+        // Se for URL relativa, converter para URL absoluta
+        const imagemUrl = boletimData.capa.pastoralImg.startsWith('data:') 
+            ? boletimData.capa.pastoralImg 
+            : new URL(boletimData.capa.pastoralImg, window.location.href).href;
+        
+        document.getElementById('og-image').setAttribute('content', imagemUrl);
+        
+        // Adicionar meta tag para dimensões da imagem (opcional, mas recomendado)
+        let ogImageWidth = document.getElementById('og-image-width');
+        if (!ogImageWidth) {
+            ogImageWidth = document.createElement('meta');
+            ogImageWidth.id = 'og-image-width';
+            ogImageWidth.setAttribute('property', 'og:image:width');
+            document.head.appendChild(ogImageWidth);
+        }
+        ogImageWidth.setAttribute('content', '1200');
+        
+        let ogImageHeight = document.getElementById('og-image-height');
+        if (!ogImageHeight) {
+            ogImageHeight = document.createElement('meta');
+            ogImageHeight.id = 'og-image-height';
+            ogImageHeight.setAttribute('property', 'og:image:height');
+            document.head.appendChild(ogImageHeight);
+        }
+        ogImageHeight.setAttribute('content', '630');
+    }
     
     // Atualizar Twitter Card
     document.getElementById('twitter-title').setAttribute('content', tituloCompleto);
     document.getElementById('twitter-description').setAttribute('content', descricao);
     
-    // Atualizar imagem de preview (Open Graph/Twitter)
+    // Atualizar imagem do Twitter Card também
     if (boletimData.capa.pastoralImg) {
-        document.getElementById('og-image').setAttribute('content', boletimData.capa.pastoralImg);
-        document.getElementById('twitter-image').setAttribute('content', boletimData.capa.pastoralImg);
-        // Também para Twitter
-        // Se quiser adicionar <meta name="twitter:image">, adicione no HTML e atualize aqui
+        const imagemUrl = boletimData.capa.pastoralImg.startsWith('data:') 
+            ? boletimData.capa.pastoralImg 
+            : new URL(boletimData.capa.pastoralImg, window.location.href).href;
+        
+        let twitterImage = document.getElementById('twitter-image');
+        if (!twitterImage) {
+            twitterImage = document.createElement('meta');
+            twitterImage.id = 'twitter-image';
+            twitterImage.setAttribute('name', 'twitter:image');
+            document.head.appendChild(twitterImage);
+        }
+        twitterImage.setAttribute('content', imagemUrl);
     }
     
     console.log('Renderizando boletim com dados:', boletimData);
