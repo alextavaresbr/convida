@@ -10,6 +10,57 @@ if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR);
 }
 
+const BOLETINS_INDEX = path.join(DATA_DIR, 'boletins.json');
+
+// Função para atualizar o índice boletins.json
+function updateBoletinsIndex(filename) {
+    // Extrair ano e mês do nome do arquivo (ex: boletim-2026-02.json)
+    const match = filename.match(/^boletim-(\d{4})-(\d{2})\.json$/);
+    if (!match) return;
+    
+    const year = match[1];
+    const month = match[2];
+    const key = `${year}-${month}`;
+    
+    let boletins = [];
+    if (fs.existsSync(BOLETINS_INDEX)) {
+        try {
+            boletins = JSON.parse(fs.readFileSync(BOLETINS_INDEX, 'utf8'));
+        } catch (e) {
+            boletins = [];
+        }
+    }
+    
+    // Verificar se já existe
+    const exists = boletins.some(b => b.key === key);
+    if (!exists) {
+        boletins.push({ key, year, month });
+        // Ordenar por key (ano-mês)
+        boletins.sort((a, b) => a.key.localeCompare(b.key));
+        fs.writeFileSync(BOLETINS_INDEX, JSON.stringify(boletins, null, 2));
+        console.log(`[INDEX] Adicionado ${key} ao boletins.json`);
+    }
+}
+
+// Função para remover do índice boletins.json
+function removeFromBoletinsIndex(filename) {
+    const match = filename.match(/^boletim-(\d{4})-(\d{2})\.json$/);
+    if (!match) return;
+    
+    const key = `${match[1]}-${match[2]}`;
+    
+    if (!fs.existsSync(BOLETINS_INDEX)) return;
+    
+    try {
+        let boletins = JSON.parse(fs.readFileSync(BOLETINS_INDEX, 'utf8'));
+        boletins = boletins.filter(b => b.key !== key);
+        fs.writeFileSync(BOLETINS_INDEX, JSON.stringify(boletins, null, 2));
+        console.log(`[INDEX] Removido ${key} do boletins.json`);
+    } catch (e) {
+        console.error('[ERRO] Erro ao atualizar índice:', e);
+    }
+}
+
 const server = http.createServer((req, res) => {
     // Log de requisições
     console.log(`[${req.method}] ${req.url}`);
@@ -59,6 +110,9 @@ const server = http.createServer((req, res) => {
                 console.log('[DEBUG] Dados de dízimos recebidos:', JSON.stringify(content.dizimos, null, 2));
                 
                 fs.writeFileSync(filepath, JSON.stringify(content, null, 2));
+                
+                // Atualizar boletins.json automaticamente
+                updateBoletinsIndex(filename);
                 
                 res.writeHead(200, { 'Content-Type': 'application/json' });
                 res.end(JSON.stringify({ 
@@ -127,6 +181,7 @@ const server = http.createServer((req, res) => {
         
         if (fs.existsSync(filepath)) {
             fs.unlinkSync(filepath);
+            removeFromBoletinsIndex(filename);
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ 
                 success: true, 
