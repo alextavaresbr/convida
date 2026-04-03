@@ -294,9 +294,14 @@ function goToPrevTab() {
 
 function saveTabData(tabId) {
     // Salvar no localStorage como backup
-    const data = collectFormData();
-    localStorage.setItem('boletim-draft', JSON.stringify(data));
-    localStorage.setItem('boletim-completed-tabs', JSON.stringify([...completedTabs]));
+    // try/catch: arquivos grandes (imagens base64) podem exceder a cota do localStorage
+    try {
+        const data = collectFormData();
+        localStorage.setItem('boletim-draft', JSON.stringify(data));
+        localStorage.setItem('boletim-completed-tabs', JSON.stringify([...completedTabs]));
+    } catch (e) {
+        console.warn('[DRAFT] Rascunho não salvo (limite de storage excedido):', e.message);
+    }
 }
 
 function showNotification(message) {
@@ -1214,9 +1219,10 @@ function autoFillForm() {
     const placeholderPastoral = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect width="400" height="300" fill="%234F46E5"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="24" fill="white"%3EImagem Pastoral%3C/text%3E%3C/svg%3E';
     const placeholderDizimos = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect width="200" height="200" fill="%238B5CF6"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="18" fill="white"%3EQR Code%3C/text%3E%3C/svg%3E';
 
-    // CAPA
-    document.getElementById('capa-mes').value = '1';
-    document.getElementById('capa-ano').value = '2026';
+    // CAPA — usa o mês/ano atual para não recarregar dados de boletim já existente
+    const now = new Date();
+    document.getElementById('capa-mes').value = String(now.getMonth() + 1);
+    document.getElementById('capa-ano').value = String(now.getFullYear());
     document.getElementById('capa-igreja').value = 'Igreja Metodista em Vila Conde do Pinhal';
     document.getElementById('capa-numero').value = '38';
     // Selecionar cor verde como padrão
