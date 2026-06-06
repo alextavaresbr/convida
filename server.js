@@ -15,26 +15,33 @@ const PORT = process.env.PORT || 3000;
 const SEED_DIR = path.join(__dirname, 'data');
 const DATA_DIR = process.env.DATA_DIR || SEED_DIR;
 
-// Criar pasta de dados se não existir
-if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-}
+// Toda a preparação dos dados é tolerante a falhas: se o volume tiver
+// problema (permissão, indisponível), apenas registramos o erro e seguimos —
+// o servidor NUNCA deve cair por causa disso (evita o 502 "failed to respond").
+try {
+    // Criar pasta de dados se não existir
+    if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
 
-// Seed inicial: copia os boletins do repositório para o volume persistente
-// APENAS quando ainda não existem lá. Nunca sobrescreve um boletim já salvo,
-// então deploys futuros não apagam nem substituem o que você criou.
-if (DATA_DIR !== SEED_DIR && fs.existsSync(SEED_DIR)) {
-    for (const file of fs.readdirSync(SEED_DIR)) {
-        if (!file.endsWith('.json')) continue;
-        const dest = path.join(DATA_DIR, file);
-        if (file === 'boletins.json') continue; // índice é recriado a partir dos dados
-        if (!fs.existsSync(dest)) {
-            fs.copyFileSync(path.join(SEED_DIR, file), dest);
-            console.log(`[SEED] Boletim copiado para o volume: ${file}`);
-        } else {
-            console.log(`[SEED] Mantido (já existe no volume): ${file}`);
+    // Seed inicial: copia os boletins do repositório para o volume persistente
+    // APENAS quando ainda não existem lá. Nunca sobrescreve um boletim já salvo,
+    // então deploys futuros não apagam nem substituem o que você criou.
+    if (DATA_DIR !== SEED_DIR && fs.existsSync(SEED_DIR)) {
+        for (const file of fs.readdirSync(SEED_DIR)) {
+            if (!file.endsWith('.json')) continue;
+            const dest = path.join(DATA_DIR, file);
+            if (file === 'boletins.json') continue; // índice é recriado a partir dos dados
+            if (!fs.existsSync(dest)) {
+                fs.copyFileSync(path.join(SEED_DIR, file), dest);
+                console.log(`[SEED] Boletim copiado para o volume: ${file}`);
+            } else {
+                console.log(`[SEED] Mantido (já existe no volume): ${file}`);
+            }
         }
     }
+} catch (e) {
+    console.error('[AVISO] Falha ao preparar o volume de dados (seguindo mesmo assim):', e.message);
 }
 
 const BOLETINS_INDEX = path.join(DATA_DIR, 'boletins.json');
@@ -91,13 +98,17 @@ function removeFromBoletinsIndex(filename) {
 // Reconstrói boletins.json a partir dos arquivos boletim-AAAA-MM.json existentes
 // no DATA_DIR. Garante que o índice reflita o que realmente está salvo.
 function rebuildBoletinsIndex() {
-    const boletins = fs.readdirSync(DATA_DIR)
-        .map(file => file.match(/^boletim-(\d{4})-(\d{2})\.json$/))
-        .filter(Boolean)
-        .map(m => ({ key: `${m[1]}-${m[2]}`, year: m[1], month: m[2] }))
-        .sort((a, b) => a.key.localeCompare(b.key));
-    fs.writeFileSync(BOLETINS_INDEX, JSON.stringify(boletins, null, 2));
-    console.log(`[INDEX] boletins.json reconstruído com ${boletins.length} boletim(ns)`);
+    try {
+        const boletins = fs.readdirSync(DATA_DIR)
+            .map(file => file.match(/^boletim-(\d{4})-(\d{2})\.json$/))
+            .filter(Boolean)
+            .map(m => ({ key: `${m[1]}-${m[2]}`, year: m[1], month: m[2] }))
+            .sort((a, b) => a.key.localeCompare(b.key));
+        fs.writeFileSync(BOLETINS_INDEX, JSON.stringify(boletins, null, 2));
+        console.log(`[INDEX] boletins.json reconstruído com ${boletins.length} boletim(ns)`);
+    } catch (e) {
+        console.error('[AVISO] Não foi possível reconstruir boletins.json:', e.message);
+    }
 }
 rebuildBoletinsIndex();
 
@@ -289,7 +300,11 @@ const server = http.createServer((req, res) => {
     // Servir arquivos estáticos (HTML, CSS, JS, imagens)
     // Remover query string da URL
     const urlPath = req.url.split('?')[0];
-    const filePath = path.join(__dirname, urlPath === '/' ? 'index.html' : urlPath);
+    // Requisições a /data/... vêm do volume persistente (DATA_DIR), não do
+    // diretório do app — assim o front-end lê o índice e os boletins atuais.
+    const filePath = urlPath.startsWith('/data/')
+        ? path.join(DATA_DIR, urlPath.slice('/data/'.length))
+        : path.join(__dirname, urlPath === '/' ? 'index.html' : urlPath);
     const ext = path.extname(filePath).toLowerCase();
     const mimeTypes = {
         '.html': 'text/html; charset=utf-8',
