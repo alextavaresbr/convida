@@ -2,12 +2,39 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 3000;
-const DATA_DIR = path.join(__dirname, 'data');
+// Railway (e a maioria dos PaaS) injeta a porta via variável de ambiente.
+// Precisa escutar nela, senão o deploy falha no health check.
+const PORT = process.env.PORT || 3000;
 
-// Criar pasta data se não existir
+// SEED_DIR = boletins versionados no repositório (baseline que vem no deploy).
+// DATA_DIR = onde os boletins são lidos/gravados em runtime.
+//   - Em produção, aponte DATA_DIR para um Volume persistente do Railway
+//     (ex.: DATA_DIR=/data com um volume montado em /data) para NÃO perder
+//     boletins a cada deploy, já que o filesystem do container é efêmero.
+//   - Localmente, sem a variável, continua usando a pasta ./data de sempre.
+const SEED_DIR = path.join(__dirname, 'data');
+const DATA_DIR = process.env.DATA_DIR || SEED_DIR;
+
+// Criar pasta de dados se não existir
 if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR);
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+// Seed inicial: copia os boletins do repositório para o volume persistente
+// APENAS quando ainda não existem lá. Nunca sobrescreve um boletim já salvo,
+// então deploys futuros não apagam nem substituem o que você criou.
+if (DATA_DIR !== SEED_DIR && fs.existsSync(SEED_DIR)) {
+    for (const file of fs.readdirSync(SEED_DIR)) {
+        if (!file.endsWith('.json')) continue;
+        const dest = path.join(DATA_DIR, file);
+        if (file === 'boletins.json') continue; // índice é recriado a partir dos dados
+        if (!fs.existsSync(dest)) {
+            fs.copyFileSync(path.join(SEED_DIR, file), dest);
+            console.log(`[SEED] Boletim copiado para o volume: ${file}`);
+        } else {
+            console.log(`[SEED] Mantido (já existe no volume): ${file}`);
+        }
+    }
 }
 
 const BOLETINS_INDEX = path.join(DATA_DIR, 'boletins.json');
@@ -60,6 +87,19 @@ function removeFromBoletinsIndex(filename) {
         console.error('[ERRO] Erro ao atualizar índice:', e);
     }
 }
+
+// Reconstrói boletins.json a partir dos arquivos boletim-AAAA-MM.json existentes
+// no DATA_DIR. Garante que o índice reflita o que realmente está salvo.
+function rebuildBoletinsIndex() {
+    const boletins = fs.readdirSync(DATA_DIR)
+        .map(file => file.match(/^boletim-(\d{4})-(\d{2})\.json$/))
+        .filter(Boolean)
+        .map(m => ({ key: `${m[1]}-${m[2]}`, year: m[1], month: m[2] }))
+        .sort((a, b) => a.key.localeCompare(b.key));
+    fs.writeFileSync(BOLETINS_INDEX, JSON.stringify(boletins, null, 2));
+    console.log(`[INDEX] boletins.json reconstruído com ${boletins.length} boletim(ns)`);
+}
+rebuildBoletinsIndex();
 
 const server = http.createServer((req, res) => {
     // Log de requisições
@@ -288,8 +328,22 @@ const server = http.createServer((req, res) => {
     }
 });
 
-server.listen(PORT, () => {
-    console.log(`\n[SERVIDOR] Rodando em http://localhost:${PORT}`);
+// Encerramento limpo quando o Railway reinicia/para o container (SIGTERM).
+// Sai com código 0 para não ser interpretado como crash (evita loop de restart).
+function shutdown(signal) {
+    console.log(`\n[SHUTDOWN] Recebido ${signal}, encerrando servidor...`);
+    server.close(() => {
+        console.log('[SHUTDOWN] Servidor encerrado com sucesso.');
+        process.exit(0);
+    });
+    // Garante saída mesmo se alguma conexão travar
+    setTimeout(() => process.exit(0), 5000).unref();
+}
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
+
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`\n[SERVIDOR] Rodando na porta ${PORT}`);
     console.log(`[DADOS] Salvando boletins em: ${DATA_DIR}`);
     console.log(`\n[ENDPOINTS] Disponíveis:`);
     console.log(`   POST   /api/save-boletim      - Salvar boletim`);
